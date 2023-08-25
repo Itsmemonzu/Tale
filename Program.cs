@@ -55,6 +55,7 @@ namespace Tale
         public bool list { get; set; } = false;
         public string? delete { get; set; }
         public string? date { get; set; }
+        public bool commands { get; set; } = false;
     }
     public static class MainRenderer
     {
@@ -74,6 +75,8 @@ namespace Tale
 
             p.Setup(arg => arg.date)
               .As("date");
+            p.Setup(arg => arg.commands)
+              .As("cmd");
             
             var result = p.Parse(args);
             
@@ -84,7 +87,25 @@ namespace Tale
 
               // The path where StreamWriter will write a .txt file
             string path = Environment.CurrentDirectory+@$"\journals";
-          
+
+          // Help command  
+          try
+          {
+            if (p.Object.commands == true)
+            {
+              Console.WriteLine(" Here's a list of all the commands and a brief explanation on they do: ");
+              Console.WriteLine("");
+              Console.WriteLine(" --help => Shows the list of all commands");
+              Console.WriteLine(" --create => Creates a new Journal. Example: tale.cs --create {name}");
+              Console.WriteLine(" --delete => Deletes a mentioned Journal. Example: tale.cs --delete {name}");
+              Console.WriteLine(" --date => Adds date to a Journal if mentioned. Example: tale.cs --create {name} --date {givenDate}");
+              Console.WriteLine(" --list => Shows the list of all existing Journals. Example: tale.cs --list");
+            }
+
+          }
+          catch{
+
+          }
           try
           {
             // Create Journal
