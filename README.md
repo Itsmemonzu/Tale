@@ -1,6 +1,6 @@
 <div align="center">
 
-## Tale <br>
+# Tale <br>
 
 ### A story-writer for your terminal.
 </div>
@@ -29,7 +29,7 @@ Finally, Your build will be located in: `Tale\bin\Release\net7.0\<yourOS>\publis
 Once the build is complete, you can simply run your terminal in the build directory and type:
 
 ```bash
-# Dreate Journal (--Date is optional)
+# Dreate Journal (--date is optional)
 $ tale --create newJournal --date 01/01/2023 
 
 # Delete Journal
