@@ -174,6 +174,30 @@ namespace Tale
             Console.WriteLine("");
             Console.WriteLine(e);
           }
+
+          //Delete Journal
+
+          if (result.HasErrors == false && !deleteName.Equals(" "))
+            {
+              var files = Directory.GetFiles(path, "*.*", SearchOption.TopDirectoryOnly);
+              // If exists
+              if(File.Exists(Path.Combine(path, deleteName+".txt")))
+              {
+                File.Delete(Path.Combine(path, deleteName));
+                Console.WriteLine("");
+                Console.WriteLine("The file has been deleted!");
+                Console.WriteLine("");
+              }
+
+              //If doesn't exist
+              if(!File.Exists(Path.Combine(path, deleteName+".txt")))
+              {
+                Console.WriteLine("");
+                Console.WriteLine("The file does not exist.");
+                Console.WriteLine("");
+              }
+            }  
+
           
         } 
     }
