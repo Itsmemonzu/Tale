@@ -80,17 +80,19 @@ namespace Tale
             
             var result = p.Parse(args);
             
-            // Journal
+          // Journal
+
             string? createName = p.Object.create??" ";
             string? deleteName= p.Object.delete??" ";
             bool? list = p.Object.list;
 
-              // The path where StreamWriter will write a .txt file
+            // The path where StreamWriter/Reader will write a .txt file
             string path = Environment.CurrentDirectory+@$"\journals";
 
           // Help command  
           try
           {
+            // If --command == true
             if (p.Object.commands == true)
             {
               Console.WriteLine(" Here's a list of all the commands and a brief explanation on what they do: ");
@@ -110,22 +112,27 @@ namespace Tale
           try
           {
             // Create Journal
+
+            //If --create does not == null
             if (result.HasErrors == false && !createName.Equals(" "))
             {
               Console.WriteLine("");
               Console.WriteLine(" Write your Journal below: ");
               Console.WriteLine("");
-
+              
               var includedParts = new info();
               includedParts.date = p.Object.date;
               includedParts.content = Console.ReadLine();
 
+              // Serializing into Json
               var serializeJournal = Newtonsoft.Json.JsonConvert.SerializeObject(includedParts);
-
+              
+              // Writing file
               using (StreamWriter writer = new StreamWriter(path+$@"\{createName}.txt"))
               {
                 writer.Write(serializeJournal);
               
+                // Return message
               Console.WriteLine("");
               Console.WriteLine(" Your Journal has been saved!");
               Console.WriteLine("");
@@ -138,13 +145,17 @@ namespace Tale
           // Show Journal List
           try
           {
+            // If --list command == true
             if(p.Object.list == true)
             {
+              // Read files in directory
               var files = Directory.GetFiles(path, "*.*", SearchOption.TopDirectoryOnly);
               int amount = files.Count();
               Console.WriteLine("");
               Console.WriteLine($" You have {amount} Journal(s) in your library!");
               Console.WriteLine("");
+
+              // Display files
               foreach (string file in files) 
               {
                 //Deserializing content for Date
@@ -176,10 +187,12 @@ namespace Tale
           }
 
           //Delete Journal
-
+            
+            // If --deleteName does not == null
           if (result.HasErrors == false && !deleteName.Equals(" "))
             {
               var files = Directory.GetFiles(path, "*.*", SearchOption.TopDirectoryOnly);
+              
               // If exists
               if(File.Exists(Path.Combine(path, deleteName+".txt")))
               {
