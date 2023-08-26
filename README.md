@@ -5,7 +5,7 @@
 ### A story-writer for your terminal.
 </div>
 
-## Installation
+## Building
 This program is dependant on [Fluent Command Line Parser](https://github.com/fclp/fluent-command-line-parser). To build the program, you need to use:
 
 ```bash
