@@ -13,6 +13,7 @@ Installing the program is very easy. Download your preffered native OS Tale vers
 
 After downloading the .zip file, extract it and there you have it! Tale is now installed. 
 Please note: If your OS is not listed above, you will have to build the program your self by downloading the source code.
+<br>
 
 ## Building
 This program is dependant on [Fluent Command Line Parser](https://github.com/fclp/fluent-command-line-parser). To build the program, you need to use:
