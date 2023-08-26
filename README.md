@@ -6,10 +6,10 @@
 </div>
 
 ## Installation
-Installing the program is very easy. Download your preffered native OS Tale version below. 
-[Tale-Windows](https://github.com/Itsmemonzu/Tale/releases/download/v0.1/tale-win.zip)
-[Tale-Linux](https://github.com/Itsmemonzu/Tale/releases/download/v0.1/tale-linux.zip)
-[Tale-OSX](https://github.com/Itsmemonzu/Tale/releases/download/v0.1/tale-osx.zip)
+Installing the program is very easy. Download your preffered native OS Tale. 
+[Tale-Windows](https://github.com/Itsmemonzu/Tale/releases/download/v0.1/tale-win.zip),
+[Tale-Linux](https://github.com/Itsmemonzu/Tale/releases/download/v0.1/tale-linux.zip),
+[Tale-OSX](https://github.com/Itsmemonzu/Tale/releases/download/v0.1/tale-osx.zip),
 
 After downloading the .zip file, extract it and there you have it! Tale is now installed. 
 Please note: If your OS is not listed above, you will have to build the program your self by downloading the source code.
