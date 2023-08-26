@@ -100,6 +100,7 @@ namespace Tale
               Console.WriteLine(" delete => Deletes a mentioned Journal. Example: tale.cs --delete {name}");
               Console.WriteLine(" date   => Adds date to a Journal if mentioned. Example: tale.cs --create {name} --date {givenDate}");
               Console.WriteLine(" list   => Shows the list of all existing Journals. Example: tale.cs --list");
+              Console.WriteLine("");
             }
 
           }
@@ -153,14 +154,15 @@ namespace Tale
                   fileContent = reader.ReadToEnd();
                 }
                 var DeserializedFile = Newtonsoft.Json.JsonConvert.DeserializeObject<info>(fileContent);
+
                 // If date exists 
-                if(!String.IsNullOrEmpty(DeserializedFile?.date))
-                {
-                Console.WriteLine(Path.GetFileNameWithoutExtension("  "+file+$"[ {DeserializedFile?.date}]"));
+                if(String.IsNullOrEmpty(DeserializedFile?.date) == false)
+                {;
+                Console.WriteLine(Path.GetFileNameWithoutExtension("  "+file)+ $" [{DeserializedFile.date}]");
                 }
 
                 // If date does not exist
-                if(String.IsNullOrEmpty(DeserializedFile?.date))
+                if(String.IsNullOrEmpty(DeserializedFile?.date) == true)
                 {
                 Console.WriteLine(Path.GetFileNameWithoutExtension("  "+file));
                 }
