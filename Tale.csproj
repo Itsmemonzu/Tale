@@ -10,6 +10,7 @@
   <ItemGroup>
     <PackageReference Include="FluentCommandLineParser" Version="1.4.3" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <Content Include="journals\**" CopyToPublishDirectory="PreserveNewest"/>
   </ItemGroup>
 
 </Project>
