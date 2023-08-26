@@ -82,7 +82,7 @@ namespace Tale
             
             // Journal
             string? createName = p.Object.create??" ";
-            string? deleteName= p.Object.delete;
+            string? deleteName= p.Object.delete??" ";
             bool? list = p.Object.list;
 
               // The path where StreamWriter will write a .txt file
@@ -95,7 +95,7 @@ namespace Tale
             {
               Console.WriteLine(" Here's a list of all the commands and a brief explanation on what they do: ");
               Console.WriteLine("");
-              Console.WriteLine(" cmd   => Shows the list of all commands");
+              Console.WriteLine(" cmd    => Shows the list of all commands");
               Console.WriteLine(" create => Creates a new Journal. Example: tale.cs --create {name}");
               Console.WriteLine(" delete => Deletes a mentioned Journal. Example: tale.cs --delete {name}");
               Console.WriteLine(" date   => Adds date to a Journal if mentioned. Example: tale.cs --create {name} --date {givenDate}");
