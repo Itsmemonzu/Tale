@@ -252,7 +252,6 @@ namespace Tale
                 Console.WriteLine("Content:");
                 Console.WriteLine(DeserializedFile?.content);
               } 
-
             }
         } 
     }
