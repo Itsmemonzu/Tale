@@ -46,6 +46,8 @@ using System.ComponentModel.Design.Serialization;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
+using System.Numerics;
+using System.Net.Mime;
 
 namespace Tale
 {
@@ -56,6 +58,7 @@ namespace Tale
         public string? delete { get; set; }
         public string? date { get; set; }
         public bool commands { get; set; } = false;
+        public string? view { get; set; } 
     }
     public static class MainRenderer
     {
@@ -73,8 +76,12 @@ namespace Tale
             p.Setup(arg => arg.delete)
               .As('d', "delete");      
 
+             p.Setup(arg => arg.view)
+              .As('v', "view");    
+
             p.Setup(arg => arg.date)
               .As("date");
+
             p.Setup(arg => arg.commands)
               .As("cmd");
             
@@ -188,30 +195,59 @@ namespace Tale
 
           //Delete Journal
             
-            // If --deleteName does not == null
-          if (result.HasErrors == false && !deleteName.Equals(" "))
+            // If --deleteName does not == null && File existss
+          if (result.HasErrors == false && !deleteName.Equals(" ") && File.Exists(Path.Combine(path, deleteName+".txt")))
             {
               var files = Directory.GetFiles(path, "*.*", SearchOption.TopDirectoryOnly);
               
               // If exists
               if(File.Exists(Path.Combine(path, deleteName+".txt")))
               {
-                File.Delete(Path.Combine(path, deleteName));
+                File.Delete(Path.Combine(path, deleteName+".txt"));
                 Console.WriteLine("");
                 Console.WriteLine("The file has been deleted!");
                 Console.WriteLine("");
               }
+            } 
+            // If --deleteName does not == null && File existss
+          if(result.HasErrors == false && !deleteName.Equals(" ") && !File.Exists(Path.Combine(path, deleteName+".txt")))
+            {
+              Console.WriteLine("");
+              Console.WriteLine("The file does not exist.");
+              Console.WriteLine("");
+            } 
 
-              //If doesn't exist
-              if(!File.Exists(Path.Combine(path, deleteName+".txt")))
+
+          // View Journal
+            string? viewJournal = p.Object.view??" ";
+
+            if (!viewJournal.Equals(" "))
+            {
+              string fileContent;
+              using(StreamReader reader = new StreamReader(path+$@"\{viewJournal}.txt"))
+              {
+                fileContent = reader.ReadToEnd();
+              }
+              var DeserializedFile = Newtonsoft.Json.JsonConvert.DeserializeObject<info>(fileContent);
+
+              if(String.IsNullOrEmpty(DeserializedFile?.date) == false)
               {
                 Console.WriteLine("");
-                Console.WriteLine("The file does not exist.");
+                Console.WriteLine("Name: "+viewJournal+" Date: "+DeserializedFile?.date);
                 Console.WriteLine("");
+                Console.WriteLine("Content:");
+                Console.WriteLine(DeserializedFile?.content);
               }
-            }  
+              if(String.IsNullOrEmpty(DeserializedFile?.date) == true)
+              {
+                Console.WriteLine("");
+                Console.WriteLine("Name: "+viewJournal );
+                Console.WriteLine("");
+                Console.WriteLine("Content:");
+                Console.WriteLine(DeserializedFile?.content);
+              } 
 
-          
+            }
         } 
     }
     public class info
