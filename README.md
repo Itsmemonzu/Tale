@@ -42,6 +42,9 @@ Once the build is complete, you can simply run your terminal in the build direct
 # Dreate Journal (--date is optional)
 $ tale --create newJournal --date 01/01/2023 
 
+# View Journal
+$ tale --view newJournal
+
 # Delete Journal
 $ tale --delete newJournal
 
