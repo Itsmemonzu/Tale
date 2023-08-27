@@ -93,8 +93,14 @@ namespace Tale
             string? deleteName= p.Object.delete??" ";
             bool? list = p.Object.list;
 
-            // The path where StreamWriter/Reader will write a .txt file
+            // The path where StreamWriter/Reader will write or read a .txt file
             string path = Environment.CurrentDirectory+@$"\journals";
+            
+            // If Directory does not exist.
+            if(!Directory.Exists(path))
+            {
+              Directory.CreateDirectory(path);
+            }
 
           // Help command  
           try
