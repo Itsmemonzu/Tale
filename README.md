@@ -45,6 +45,13 @@ $ tale --create newJournal --date 01/01/2023
 # View Journal
 $ tale --view newJournal
 
+# Edit Journal
+$ tale --edit newJournal
+    Doing this will ask you to enter some details.
+    - Please write the part that you want to edit: (Example: Hello)
+    - You want to replace it with: (Example: Hi)
+    Please note that you need to enter a valid prompt that exists in the Journal. 
+
 # Delete Journal
 $ tale --delete newJournal
 
