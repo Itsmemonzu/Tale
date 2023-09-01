@@ -59,6 +59,7 @@ namespace Tale
         public string? date { get; set; }
         public bool commands { get; set; } = false;
         public string? view { get; set; } 
+        public string? edit { get; set; }
     }
     public static class MainRenderer
     {
@@ -76,8 +77,11 @@ namespace Tale
             p.Setup(arg => arg.delete)
               .As('d', "delete");      
 
-             p.Setup(arg => arg.view)
-              .As('v', "view");    
+            p.Setup(arg => arg.view)
+              .As('v', "view");   
+
+            p.Setup(arg => arg.edit) 
+              .As('e', "edit"); 
 
             p.Setup(arg => arg.date)
               .As("date");
@@ -243,6 +247,7 @@ namespace Tale
                 Console.WriteLine("");
                 Console.WriteLine("Content:");
                 Console.WriteLine(DeserializedFile?.content);
+                Console.WriteLine("");
               }
               if(String.IsNullOrEmpty(DeserializedFile?.date) == true)
               {
@@ -251,10 +256,64 @@ namespace Tale
                 Console.WriteLine("");
                 Console.WriteLine("Content:");
                 Console.WriteLine(DeserializedFile?.content);
+                Console.WriteLine("");
               } 
             }
-        } 
-    }
+
+          // Edit Journal
+            string? editJournal = p.Object.edit??" ";
+
+            if (!editJournal.Equals(" "))
+            {
+              string fileContent;
+              using(StreamReader reader = new StreamReader(path+$@"\{editJournal}.txt"))
+              {
+                fileContent = reader.ReadToEnd();
+              }
+              var DeserializedFile = Newtonsoft.Json.JsonConvert.DeserializeObject<info>(fileContent);
+              
+              Console.WriteLine("");
+              Console.WriteLine("Please write the part that you want to edit: ");
+              Console.WriteLine("");
+              string? subject = Console.ReadLine();
+
+              // If not null
+              if(!String.IsNullOrEmpty(subject))
+              {
+                Console.WriteLine("You want to replace it with:");
+                Console.WriteLine("");
+                string? replacer = Console.ReadLine();
+                
+                // If subject exists in DeserializedFile.content
+                if(DeserializedFile.content.Contains(subject))
+                {
+                  // Replace the text
+                  string fileRead = File.ReadAllText(path+$@"\{editJournal}.txt");
+                  fileRead = fileRead.Replace(subject, replacer);
+
+                  // Write the file
+                  File.WriteAllText(path+$@"\{editJournal}.txt", fileRead);
+
+                  Console.WriteLine("Your Journal has been edited succesfully!");
+                  Console.WriteLine("");
+                }
+
+                // If subject doesn't exist in DeserializedFile.content
+                if(!DeserializedFile.content.Contains(subject))
+                {
+                  Console.WriteLine("The part you wanted to edit does not exist!");
+                  Console.WriteLine("");
+                }
+              }
+
+              // If null
+              if(String.IsNullOrEmpty(subject))
+              {
+                Console.WriteLine("You have entered a null value!");
+              }
+            } 
+          }
+        }  
     public class info
     {
       public string? content { get; set; }
